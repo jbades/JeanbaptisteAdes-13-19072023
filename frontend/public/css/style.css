@@ -71,7 +71,7 @@ body {
 }
 
 .hero {
-  background-image: url('../img/bank-tree.jpeg');
+  background-image: url("../../../public/assets/img/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -105,7 +105,6 @@ body {
     height: 400px;
     background-position: 0% 33%;
   }
-
   .hero-content {
     position: absolute;
     top: 50px;
@@ -113,16 +112,13 @@ body {
     width: 300px;
     margin: 2rem;
   }
-
   .hero-content .subtitle {
     font-size: 1.5rem;
   }
-
   .hero-content .text {
     font-size: 1.2rem;
   }
 }
-
 .features {
   display: flex;
   flex-direction: column;
@@ -133,7 +129,6 @@ body {
     flex-direction: row;
   }
 }
-
 .feature-icon {
   width: 100px;
   border: 10px solid #00bc77;
@@ -280,11 +275,9 @@ body {
   .account {
     flex-direction: row;
   }
-
   .account-content-wrapper.cta {
     flex: 0;
   }
-
   .transaction-button {
     width: 200px;
   }
