@@ -1,4 +1,5 @@
 import CreateSignInForm from "../../components/signin-form/SignInForm";
+import "../../styles/sass/_main.scss"
 
 export default function SignIn() {
     return <main className="main bg-dark">

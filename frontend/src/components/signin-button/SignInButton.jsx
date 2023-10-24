@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { signin } from '../../store';
+// import { signin } from '../../store';
 
 export default function SignInButton() {
     const dispatch = useDispatch();
@@ -8,8 +8,7 @@ export default function SignInButton() {
         <button 
             className="sign-in-button" 
             onClick={() => {
-                console.log("le clic sur bouton fonctionne")
-                dispatch(signin());
+                // dispatch(signin());
             }}
         >
             Sign In

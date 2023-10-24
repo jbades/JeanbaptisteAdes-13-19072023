@@ -15,3 +15,21 @@ export const login = async (username, password) => {
         return error
     }
 }
+
+export const getUserData = async (token) => {
+    try {
+        const defaultAxiosHeader = axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+        const response = await axios.post(BASE_URL + '/user/profile', defaultAxiosHeader)
+        return response
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const updateUserData = async (token) => {
+    try {
+        console.log(token)
+    } catch (error) {
+        console.error(error)
+    }
+}

@@ -1,23 +1,16 @@
-import {createStore} from 'redux';
-    
-    // state
-    const initialState = {
-        identified: false,
-        identity: null,
-    };
+import { configureStore } from '@reduxjs/toolkit'
+import loggingReducer from './features/logIn'
 
-    // action creators
-    export const signin = (user) => ({type: "signin"});
-    export const signout = () => ({type: "signout"});
 
-    function reducer (state= initialState, action) {
-        if(action.type === "signin") {
-            return "à développer";
-        }
-        if(action.type === "signout") {
-            return initialState;
-        }
-        return state;
+const store = configureStore ({
+    reducer: {
+        logging: loggingReducer
     }
+})
 
-export const store = createStore(reducer);
+// state tracker
+store.subscribe(() => {
+    // console.log("!!! Nouveau state: ", store.getState())
+})
+
+export default store

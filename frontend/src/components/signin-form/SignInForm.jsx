@@ -1,27 +1,16 @@
-import { useState } from 'react'
-import { login } from '../../services/api'
+import { login, getUserData } from '../../services/api'
+import { storeFirstName, storeLastName, storeRememberStatus } from '../../features/logIn'
 import SignInButton from '../signin-button/SignInButton'
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateSignInForm () {
 
-    // creating & setting default states
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [rememberMe, setRememberMe] = useState(false)
-
-    // catching credential values
-    const usernameUpdate = (event) => {
-        setUsername(event.target.value)
-    }    
-    const passwordUpdate = (event) => {
-        setPassword(event.target.value)
-    }    
-    const rememberMeUpdate = (event) => {
-        setRememberMe(event.target.checked)
-    }
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     // create login-failure message
-    const failurePrompt = () => {
+    const loginFailurePrompt = () => {
         const loginFailure = document.createElement("div")
         loginFailure.className = "login-failure"
         loginFailure.innerText = "Incorrect login or password"
@@ -29,36 +18,56 @@ export default function CreateSignInForm () {
         const form = document.getElementById("login-form")
         form.appendChild(loginFailure)
     }
-    
+
     // submitting credentials to backend
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const loginSubmit = await login(username, password)
-        if(loginSubmit.status === 200) {
+        const loginId = document.querySelector("#username").value
+        const password = document.querySelector("#password").value
+        const rememberMe = document.querySelector("#remember-me").checked
+
+        const loginSubmit = await login(loginId, password)
+        if(loginSubmit.status === 200) // login success
+        {
             const token = loginSubmit.data.body.token
-            console.log("!!! code 200", loginSubmit, "!!!token:", token)
-        } else {
-            failurePrompt()
+
+            // storing token locally for later use
+            if (!rememberMe) {
+                sessionStorage.setItem("token", token)
+            }
+            localStorage.setItem("token", token)
+
+            // fetching user data
+            const tokenSubmit = await getUserData(token)
+            console.log(tokenSubmit)
+
+            // updating store
+            dispatch(storeFirstName(loginId))
+            dispatch(storeLastName(password))
+            dispatch(storeRememberStatus(rememberMe))
+
+            // show user page
+            navigate("/user")
+            
+        } else // login failure 
+        {
+            loginFailurePrompt()
         }
-        // if 200
-        // dispatch(logingSuccess(response.data))
-        console.log("réponse du serveur : ", loginSubmit.status)
-        return loginSubmit
     }
     
     return (
         <form id="login-form" onSubmit={handleSubmit}>
             <div className="input-wrapper">
                 <label>Username</label>
-                <input type="text" id="username" onChange={usernameUpdate} />
+                <input type="text" id="username"/>
             </div>
             <div className="input-wrapper">
                 <label>Password</label>
-                <input type="password" id="password" onChange={passwordUpdate} />
+                <input type="password" id="password"/>
             </div>
             <div className="input-remember">
                 <label>Remember me</label>
-                <input type="checkbox" id="remember-me" onChange={rememberMeUpdate} />
+                <input type="checkbox" id="remember-me"/>
             </div>
            <SignInButton/>
         </form>
