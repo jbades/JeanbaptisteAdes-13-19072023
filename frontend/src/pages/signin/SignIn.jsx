@@ -1,4 +1,4 @@
-import CreateSignInForm from "../../components/signin-form/SignInForm";
+import SignInForm from "../../components/signin-form/SignInForm";
 import "../../styles/sass/_main.scss"
 
 export default function SignIn() {
@@ -6,7 +6,7 @@ export default function SignIn() {
         <section className="sign-in-content">
             <i className="fa fa-user-circle sign-in-icon"></i>
             <h1>Sign In</h1>
-            <CreateSignInForm/>
+            <SignInForm/>
         </section>
     </main>
 }

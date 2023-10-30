@@ -10,7 +10,7 @@ const store = configureStore ({
 
 // state tracker
 store.subscribe(() => {
-    // console.log("!!! Nouveau state: ", store.getState())
+    console.log("!!! New state: ", store.getState())
 })
 
 export default store

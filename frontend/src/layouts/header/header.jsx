@@ -1,6 +1,8 @@
 import {NavLink} from 'react-router-dom'
+import Menu from './menu/Menu'
 
 export default function Header() {
+
     return <nav className="main-nav">
         <NavLink className="main-nav-logo" to="/">
             <img 
@@ -10,9 +12,6 @@ export default function Header() {
             />
             <h1 className="sr-only">Argent Bank</h1>
         </NavLink>
-        <NavLink className="main-nav-item" to="/signin">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-        </NavLink>
+        <Menu />    
     </nav>
 }

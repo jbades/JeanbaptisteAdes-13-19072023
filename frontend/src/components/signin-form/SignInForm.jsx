@@ -1,10 +1,10 @@
 import { login, getUserData } from '../../services/api'
-import { storeFirstName, storeLastName, storeRememberStatus } from '../../features/logIn'
-import SignInButton from '../signin-button/SignInButton'
+import { storeFirstName, storeIdentified, storeLastName } from '../../features/logIn'
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
-export default function CreateSignInForm () {
+export default function SignInForm () {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
@@ -21,6 +21,7 @@ export default function CreateSignInForm () {
 
     // submitting credentials to backend
     const handleSubmit = async (event) => {
+        console.log(event)
         event.preventDefault()
         const loginId = document.querySelector("#username").value
         const password = document.querySelector("#password").value
@@ -33,26 +34,35 @@ export default function CreateSignInForm () {
 
             // storing token locally for later use
             if (!rememberMe) {
-                sessionStorage.setItem("token", token)
+                sessionStorage.setItem("JWT", token)
+            } else {
+                localStorage.setItem("JWT", token)
             }
-            localStorage.setItem("token", token)
 
             // fetching user data
             const tokenSubmit = await getUserData(token)
-            console.log(tokenSubmit)
+            console.log(tokenSubmit.data.body)
 
             // updating store
-            dispatch(storeFirstName(loginId))
-            dispatch(storeLastName(password))
-            dispatch(storeRememberStatus(rememberMe))
+            dispatch(storeFirstName(tokenSubmit.data.body.firstName))
+            dispatch(storeLastName(tokenSubmit.data.body.lastName))
+            dispatch(storeIdentified(true))
 
             // show user page
             navigate("/user")
+            console.log("!!! redirection vers /user")
             
         } else // login failure 
         {
             loginFailurePrompt()
         }
+    }
+
+    const token = localStorage.getItem("JWT")
+
+    if (token) {
+        console.log("!!! Le token est présent", token)
+        navigate("/user")
     }
     
     return (
@@ -69,7 +79,7 @@ export default function CreateSignInForm () {
                 <label>Remember me</label>
                 <input type="checkbox" id="remember-me"/>
             </div>
-           <SignInButton/>
+           <button className="sign-in-button">Sign In</button>
         </form>
     )
 }

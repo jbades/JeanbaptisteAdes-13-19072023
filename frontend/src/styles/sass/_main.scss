@@ -8,11 +8,29 @@ html {
   
   body {
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    // min-height: 100vh;
   }
   
+  #root {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 8% auto 9%;
+  }
+
+  header {
+    grid-row: 1;
+  }
+
+  section {
+    grid-row: 2;
+  }
+
+  footer {
+    grid-row: 3;
+  }
+
   .main {
     flex: 1;
   }
@@ -168,6 +186,7 @@ html {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
+    cursor: pointer;
   }
   
   .sign-in-content {
@@ -175,12 +194,12 @@ html {
     background-color: white;
     width: 300px;
     margin: 0 auto;
-    margin-top: 3rem;
+    // margin-top: 3rem;
     padding: 2rem;
   }
   
   .sign-in-icon {
-    font-size: 5rem;
+    font-size: 2rem;
   }
   
   .input-remember {
