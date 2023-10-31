@@ -4,15 +4,11 @@ import {useSelector, useStore} from "react-redux"
 export default function User() {
 
   const navigate = useNavigate()
-  const store = useStore()
+  // const store = useStore()
 
-  const token = localStorage.getItem("JWT")
-
-  // const firstName = useSelector((state) => state.user.firstName)
-  // const lastName = useSelector((state) => state.user.lastName)
-  const magasin = store.getState()
-  console.log(magasin)
-  // console.log("!!! firstName: ", firstName)
+  const token = useSelector((state) => state.userProfile.token)
+  const firstName = useSelector((state) => state.userProfile.user.firstName)
+  const lastName = useSelector((state) => state.userProfile.user.lastName)
 
   if(!token) {
     navigate("/signin")
@@ -20,7 +16,7 @@ export default function User() {
 
   return <main className="main bg-dark">
     <div className="header">
-      {/* <h1>Welcome back<br />{firstName} + " " + {lastName} !</h1> */}
+      <h1>Welcome back<br />{firstName} {lastName} !</h1>
       <button className="edit-button">Edit Name</button>
     </div>
     <h2 className="sr-only">Accounts</h2>

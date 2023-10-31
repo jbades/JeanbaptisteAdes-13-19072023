@@ -1,6 +1,6 @@
 import { login, getUserData } from '../../services/api'
-import { storeFirstName, storeIdentified, storeLastName } from '../../features/logIn'
-import { useDispatch } from "react-redux";
+import { setToken, setFirstName, setIdentified, setLastName } from '../../features/userProfile'
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 
@@ -19,9 +19,7 @@ export default function SignInForm () {
         form.appendChild(loginFailure)
     }
 
-    // submitting credentials to backend
     const handleSubmit = async (event) => {
-        console.log(event)
         event.preventDefault()
         const loginId = document.querySelector("#username").value
         const password = document.querySelector("#password").value
@@ -32,25 +30,17 @@ export default function SignInForm () {
         {
             const token = loginSubmit.data.body.token
 
-            // storing token locally for later use
-            if (!rememberMe) {
-                sessionStorage.setItem("JWT", token)
-            } else {
-                localStorage.setItem("JWT", token)
-            }
-
             // fetching user data
             const tokenSubmit = await getUserData(token)
-            console.log(tokenSubmit.data.body)
 
             // updating store
-            dispatch(storeFirstName(tokenSubmit.data.body.firstName))
-            dispatch(storeLastName(tokenSubmit.data.body.lastName))
-            dispatch(storeIdentified(true))
+            dispatch(setFirstName(tokenSubmit.data.body.firstName))
+            dispatch(setLastName(tokenSubmit.data.body.lastName))
+            dispatch(setIdentified(true))
+            dispatch(setToken(token))
 
             // show user page
             navigate("/user")
-            console.log("!!! redirection vers /user")
             
         } else // login failure 
         {
@@ -58,10 +48,9 @@ export default function SignInForm () {
         }
     }
 
-    const token = localStorage.getItem("JWT")
+    const token = useSelector((state) => state.userProfile.token)
 
     if (token) {
-        console.log("!!! Le token est présent", token)
         navigate("/user")
     }
     

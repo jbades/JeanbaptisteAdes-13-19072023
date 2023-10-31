@@ -16,35 +16,27 @@ export default function App() {
 
   return (
     <Router>
-      <header>
-        <Header />
-      </header>
-      <section className='section__main'>
-        <main>
-          <Routes>
-              <Route 
-                path="/signin" 
-                element={
-                  <SignInAuth>
-                    <SignIn/> 
-                  </SignInAuth>
-                }
-              />
-              <Route 
-                path="/user" 
-                element={
-                  <UserAuth>
-                    <User/>
-                  </UserAuth>
-                } 
-              />
-              <Route path="*" element={<Index/>} />
-          </Routes>
-        </main>
-      </section>
-      <footer>
-        <Footer />  
-      </footer>
+      <Header />
+      <Routes>
+          <Route 
+            path="/signin" 
+            element={
+              <SignInAuth>
+                <SignIn/> 
+              </SignInAuth>
+            }
+          />
+          <Route 
+            path="/user" 
+            element={
+              <UserAuth>
+                <User/>
+              </UserAuth>
+            } 
+          />
+          <Route path="*" element={<Index/>} />
+      </Routes>
+      <Footer />  
     </Router>
   );
 }

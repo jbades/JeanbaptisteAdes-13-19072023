@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import loggingReducer from './features/logIn'
+import userProfileReducer from './features/userProfile'
 
 
 const store = configureStore ({
     reducer: {
-        logging: loggingReducer
+        userProfile: userProfileReducer
     }
 })
 

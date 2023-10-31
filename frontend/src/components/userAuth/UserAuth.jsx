@@ -1,12 +1,9 @@
 import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function UserAuth ({children}) {
 
-    const token = localStorage.getItem("JWT")
+    const token = useSelector((state) => state.userProfile.token)
     
-    if (token) {
-        return children
-    } else {
-        return <Navigate to="/signin" />
-    }
+    return token ? children : <Navigate to="/signin" />
 }

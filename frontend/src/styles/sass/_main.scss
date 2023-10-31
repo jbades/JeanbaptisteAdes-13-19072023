@@ -8,29 +8,15 @@ html {
   
   body {
     margin: 0;
-    // display: flex;
-    // flex-direction: column;
-    // min-height: 100vh;
+    min-height: 100vh;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
   
-  #root {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: 8% auto 9%;
-  }
-
-  header {
-    grid-row: 1;
-  }
-
-  section {
-    grid-row: 2;
-  }
-
-  footer {
-    grid-row: 3;
-  }
-
   .main {
     flex: 1;
   }
@@ -72,6 +58,10 @@ html {
   .main-nav-item {
     text-decoration: none;
     margin-right: 0.5rem;
+
+    i:before {
+      margin-right: 5px;
+    }
   }
   
   .main-nav-item:hover {
@@ -194,7 +184,7 @@ html {
     background-color: white;
     width: 300px;
     margin: 0 auto;
-    // margin-top: 3rem;
+    margin-top: 3rem;
     padding: 2rem;
   }
   
