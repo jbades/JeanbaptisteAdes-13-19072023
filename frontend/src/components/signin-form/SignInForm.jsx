@@ -34,10 +34,10 @@ export default function SignInForm () {
             const tokenSubmit = await getUserData(token)
 
             // updating store
+            dispatch(setToken(token))
             dispatch(setFirstName(tokenSubmit.data.body.firstName))
             dispatch(setLastName(tokenSubmit.data.body.lastName))
             dispatch(setIdentified(true))
-            dispatch(setToken(token))
 
             // show user page
             navigate("/user")
