@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import userProfileReducer from './features/userProfile'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { setFirstName, setLastName, setIdentified, clearToken } from './features/userProfile'
 
+// temp-log-middleware
 const actionLoggerMiddleware = store => next => action => {
     console.log('Dispatching action:', action)
     const result = next(action)
@@ -11,13 +11,16 @@ const actionLoggerMiddleware = store => next => action => {
     return result
 }
 
-const logoutMiddleware = ({ dispatch, getState }) => next => action => {
+// logout middleware
+const logoutMiddleware = () => next => action => {
 
     next(action);
   
     if (action.type === 'userProfile/logout') {
     }
   }
+
+// using redux-persist to secure 'localStorage'
 
 const persistConfig = {
     key: 'root',

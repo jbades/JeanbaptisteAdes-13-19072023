@@ -1,26 +1,26 @@
+import { useState } from 'react'
 import { login, getUserData } from '../../services/api'
 import { setToken, setFirstName, setLastName, setRememberMe, setIdentified } from '../../features/userProfile'
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 export default function SignInForm () {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    // create login-failure message
-    const loginFailureMessage = () => {
-        const loginFailure = document.createElement("div")
-        loginFailure.className = "login-failure"
-        loginFailure.innerText = "Incorrect login or password"
+    // setting failure-message display-state to none by default
+    const [failureDisplayState, setFailureDisplayState]  = useState('none')
 
-        const form = document.getElementById("login-form")
-        form.appendChild(loginFailure)
-    }
-    // setting rememberMe state on click
+    // setting rememberMe-state on click
     const handleRememberMe = (event) => {
         dispatch(setRememberMe(event.target.checked))
     }    
+
+    // retrieving failure message
+    const retrieveFailuremessage = () => {
+        setFailureDisplayState("none")
+    }
 
     // setting global state on submit
     const handleSubmit = async (event) => {
@@ -42,16 +42,16 @@ export default function SignInForm () {
             dispatch(setLastName(tokenSubmit.data.body.lastName))
             dispatch(setIdentified(true))
 
-            // show user page
+            // redirecting towards user page
             navigate("/user")
             
-        } else // login failure 
+        } else // displaying failure message 
         {
-            loginFailureMessage()
+            setFailureDisplayState("block")
         }
     }
 
-    // redirect if not identified
+    // redirecting if not identified
     const identified = useSelector((state) => state.userProfile.identified)
 
     if (identified) {
@@ -60,7 +60,7 @@ export default function SignInForm () {
     
     // rendering form
     return (
-        <form id="login-form" onSubmit={handleSubmit}>
+        <form id="login-form" onSubmit={handleSubmit} onInput={retrieveFailuremessage}>
             <div className="input-wrapper">
                 <label>Username</label>
                 <input type="text" id="username"/>
@@ -74,6 +74,7 @@ export default function SignInForm () {
                 <input type="checkbox" id="remember-me" onClick={handleRememberMe}/>
             </div>
            <button className="sign-in-button">Sign In</button>
+           <div className="login-failure" style={{display: failureDisplayState}}>Incorrect login or password</div>
         </form>
     )
 }

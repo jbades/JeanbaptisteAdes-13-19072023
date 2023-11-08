@@ -11,23 +11,20 @@ import User from './pages/user/User'
 import SignIn from './pages/signin/SignIn'
 import UserAuth from './components/userAuth/UserAuth'
 import SignInAuth from './components/signinAuth/SignInAuth'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { setFirstName, setIdentified, setLastName, setToken } from './features/userProfile'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from './features/userProfile'
 
 export default function App() {
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  // // cleaning store data if rememberMe is false
-  // const rememberMe = useSelector((state) => state.userProfile.user.rememberMe)
-  // console.log("!!! rememberMe: ", rememberMe)
+  // cleaning store data if rememberMe is false
+  const rememberMe = useSelector((state) => state.userProfile.user.rememberMe)
+  console.log("!!! rememberMe: ", rememberMe)
 
-  // if (!rememberMe) {
-  //   dispatch(setFirstName(""))
-  //   dispatch(setLastName(""))
-  //   dispatch(setIdentified(false))
-  //   dispatch(setToken(""))
-  // }
+  if (!rememberMe) {
+    dispatch(logout())
+  }
 
   return (
     <Router>

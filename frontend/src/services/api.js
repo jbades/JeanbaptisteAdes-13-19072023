@@ -2,13 +2,16 @@ import axios from "axios"
 
 const BASE_URL = "http://localhost:3001/api/v1"
 
+// submitting credentials to identification-endpoint
 export const login = async (username, password) => {
     try {
-        const response = await axios.post(BASE_URL + '/user/login', {
+        // setting credentials object to be submitted
+        const axiosConfig = {
             'email': username, 
             'password': password
-        })
-        // console.log("login response: ", response)
+        }
+        // axios query
+        const response = await axios.post(BASE_URL + '/user/login', axiosConfig)
         return response
     } 
     catch (error) {
@@ -17,20 +20,42 @@ export const login = async (username, password) => {
     }
 }
 
+// submitting user-token to user-data-endpoint
 export const getUserData = async (token) => {
     try {
-        const defaultAxiosHeader = axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-        const response = await axios.post(BASE_URL + '/user/profile', defaultAxiosHeader)
-        // console.log("getUserData response: ", response)
+        // setting headers and content-type objects for axios query
+        const axiosConfig = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+        }
+        // axios query
+        const response = await axios.post(BASE_URL + '/user/profile', axiosConfig)
         return response
     } catch (error) {
         console.error(error)
     }
 }
 
-export const updateUserData = async (token) => {
+// submitting new names to user-data-endpoint
+export const updateUserData = async (token, firstName, lastName) => {
     try {
-        console.log(token)
+        // setting headers and content-type objects for axios query
+        const axiosConfig = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+        }
+        // setting new-data object
+        const data = {
+            firstName: firstName,
+            lastName: lastName
+        }
+        // axios query
+        const response = await axios.put(BASE_URL + '/user/profile', data, axiosConfig)
+        return response
     } catch (error) {
         console.error(error)
     }

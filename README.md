@@ -51,6 +51,7 @@ Once you run the `populate-db` script, you should have two users in your databas
 - Last Name: `Stark`
 - Email: `tony@stark.com`
 - Password: `password123`
+- Token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDg0ZjM2OTY2YTYwMWZiZDg5NzllZSIsImlhdCI6MTY5OTQzNjE1OCwiZXhwIjoxNjk5NTIyNTU4fQ.M-xqsLV2TtMehTuoHtiBSJDDGfQXFL5bYymkBC5g2kU`
 
 ### Steve Rogers
 
@@ -58,6 +59,7 @@ Once you run the `populate-db` script, you should have two users in your databas
 - Last Name: `Rogers`,
 - Email: `steve@rogers.com`,
 - Password: `password456`
+- Token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDg0ZjM2OTY2YTYwMWZiZDg5NzllZiIsImlhdCI6MTY5OTQzNjI4MSwiZXhwIjoxNjk5NTIyNjgxfQ.2Z1ItVIzlST3I1GoeNr0w6KsQixf42AADgIRPAfsneg`
 
 ## API Documentation
 

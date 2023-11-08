@@ -8,7 +8,6 @@ export default function Menu() {
     const navigate = useNavigate()
     
     const identified = useSelector((state) => state.userProfile.identified)
-    // const token = useSelector((state) => state.userProfile.token)
     const firsName = useSelector((state) => state.userProfile.user.firstName)
     const lastName = useSelector((state) => state.userProfile.user.lastName)
 
@@ -18,7 +17,7 @@ export default function Menu() {
 
         dispatch(logout())
 
-        navigate("/signin") // pourquoi ça ne marche pas ?
+        navigate("/signin")
     }
     
     if (identified) {
