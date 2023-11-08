@@ -1,16 +1,15 @@
-import {useNavigate} from "react-router-dom"
-import {useSelector, useStore} from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 export default function User() {
 
   const navigate = useNavigate()
-  // const store = useStore()
 
-  const token = useSelector((state) => state.userProfile.token)
+  const identified = useSelector((state) => state.userProfile.identified)
   const firstName = useSelector((state) => state.userProfile.user.firstName)
   const lastName = useSelector((state) => state.userProfile.user.lastName)
 
-  if(!token) {
+  if(!identified) {
     navigate("/signin")
   }
 

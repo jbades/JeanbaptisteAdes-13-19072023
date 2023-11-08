@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     user: {
       firstName: "",
-      lastName: ""
+      lastName: "", 
+      rememberMe: false
     },
     identified: false, 
     token: null
@@ -20,6 +21,9 @@ const initialState = {
         setLastName: (state, action) => {
           state.user.lastName = action.payload
         },
+        setRememberMe: (state, action) => {
+          state.user.rememberMe = action.payload
+        },
         setIdentified: (state, action) => {
           state.identified = action.payload
         },
@@ -28,11 +32,14 @@ const initialState = {
         },
         clearToken: state => {
           state.token = null
-        }    
+        }, 
+        logout: state => {
+          return initialState
+        }
     },
   });
 
 // action creators
-export const { setFirstName, setLastName, setIdentified, setToken, clearToken } = userSlice.actions
+export const { setFirstName, setLastName, setRememberMe, setIdentified, setToken, clearToken, logout } = userSlice.actions
 
 export default userSlice.reducer;

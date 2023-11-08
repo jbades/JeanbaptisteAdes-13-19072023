@@ -8,6 +8,7 @@ export const login = async (username, password) => {
             'email': username, 
             'password': password
         })
+        // console.log("login response: ", response)
         return response
     } 
     catch (error) {
@@ -20,6 +21,7 @@ export const getUserData = async (token) => {
     try {
         const defaultAxiosHeader = axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
         const response = await axios.post(BASE_URL + '/user/profile', defaultAxiosHeader)
+        // console.log("getUserData response: ", response)
         return response
     } catch (error) {
         console.error(error)

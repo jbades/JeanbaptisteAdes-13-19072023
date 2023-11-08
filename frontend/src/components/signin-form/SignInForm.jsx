@@ -1,16 +1,15 @@
 import { login, getUserData } from '../../services/api'
-import { setToken, setFirstName, setIdentified, setLastName } from '../../features/userProfile'
+import { setToken, setFirstName, setLastName, setRememberMe, setIdentified } from '../../features/userProfile'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
 
 export default function SignInForm () {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     // create login-failure message
-    const loginFailurePrompt = () => {
+    const loginFailureMessage = () => {
         const loginFailure = document.createElement("div")
         loginFailure.className = "login-failure"
         loginFailure.innerText = "Incorrect login or password"
@@ -18,12 +17,16 @@ export default function SignInForm () {
         const form = document.getElementById("login-form")
         form.appendChild(loginFailure)
     }
+    // setting rememberMe state on click
+    const handleRememberMe = (event) => {
+        dispatch(setRememberMe(event.target.checked))
+    }    
 
+    // setting global state on submit
     const handleSubmit = async (event) => {
         event.preventDefault()
         const loginId = document.querySelector("#username").value
         const password = document.querySelector("#password").value
-        const rememberMe = document.querySelector("#remember-me").checked
 
         const loginSubmit = await login(loginId, password)
         if(loginSubmit.status === 200) // login success
@@ -44,16 +47,18 @@ export default function SignInForm () {
             
         } else // login failure 
         {
-            loginFailurePrompt()
+            loginFailureMessage()
         }
     }
 
-    const token = useSelector((state) => state.userProfile.token)
+    // redirect if not identified
+    const identified = useSelector((state) => state.userProfile.identified)
 
-    if (token) {
+    if (identified) {
         navigate("/user")
     }
     
+    // rendering form
     return (
         <form id="login-form" onSubmit={handleSubmit}>
             <div className="input-wrapper">
@@ -66,7 +71,7 @@ export default function SignInForm () {
             </div>
             <div className="input-remember">
                 <label>Remember me</label>
-                <input type="checkbox" id="remember-me"/>
+                <input type="checkbox" id="remember-me" onClick={handleRememberMe}/>
             </div>
            <button className="sign-in-button">Sign In</button>
         </form>
