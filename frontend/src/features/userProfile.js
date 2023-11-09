@@ -33,7 +33,7 @@ const initialState = {
         clearToken: state => {
           state.token = null
         }, 
-        logout: state => {
+        logout: () => {
           return initialState
         }
     },

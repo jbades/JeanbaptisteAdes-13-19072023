@@ -7,19 +7,20 @@ export default function Menu() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
+    // get data from store
     const identified = useSelector((state) => state.userProfile.identified)
     const firsName = useSelector((state) => state.userProfile.user.firstName)
     const lastName = useSelector((state) => state.userProfile.user.lastName)
 
+    // dealing with signout
     const handleSignOut = (event) => {
 
         event.preventDefault()
-
         dispatch(logout())
-
         navigate("/signin")
     }
     
+    // rendering menu
     if (identified) {
         return <nav className="main-nav">        
             <NavLink className="main-nav-item" to="/user">
