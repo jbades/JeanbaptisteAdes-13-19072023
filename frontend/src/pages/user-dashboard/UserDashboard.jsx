@@ -1,13 +1,40 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import UserModal from "./user-modal/userModal"
+import { updateUserData } from "../../services/api"
+import { setFirstName, setLastName } from '../../features/userProfile'
 
 export default function User() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [showModal, setShowModal] = useState(false)
 
   const identified = useSelector((state) => state.userProfile.identified)
+  const token = useSelector((state) => state.userProfile.token)
   const firstName = useSelector((state) => state.userProfile.user.firstName)
   const lastName = useSelector((state) => state.userProfile.user.lastName)
+
+  const handleEditNameClick = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
+  const handleSaveNewNames = async (newFirstName, newLastName) => {
+    try {
+      const response = await updateUserData(token, newFirstName, newLastName)
+      dispatch(setFirstName(newFirstName))
+      dispatch(setLastName(newLastName))
+      setShowModal(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   // checking user-identification
   if(!identified) {
@@ -18,7 +45,7 @@ export default function User() {
   return <main className="main bg-dark">
     <div className="header">
       <h1>Welcome back<br />{firstName} {lastName} !</h1>
-      <button className="edit-button">Edit Name</button>
+      <button className="edit-button" onClick={handleEditNameClick}>Edit Name</button>
     </div>
     <h2 className="sr-only">Accounts</h2>
     <section className="account">
@@ -51,6 +78,14 @@ export default function User() {
         <button className="transaction-button">View transactions</button>
       </div>
     </section>
-  </main>
 
+    <UserModal
+      show={showModal}
+      onClose={handleCloseModal}
+      onSave={handleSaveNewNames}
+      existingFirstName={firstName}
+      existingLastName={lastName}
+    />
+
+  </main>
 }

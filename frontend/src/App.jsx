@@ -7,10 +7,10 @@ import {
 import Header from './layouts/header/Header'
 import Index from './pages/index/Index'
 import Footer from './layouts/footer/Footer'
-import User from './pages/user/User'
+import User from './pages/user-dashboard/UserDashboard'
 import SignIn from './pages/signin/SignIn'
-import UserAuth from './components/userAuth/UserAuth'
-import SignInAuth from './components/signinAuth/SignInAuth'
+import UserAuth from './pages/user-dashboard/userAuth/UserAuth'
+import SignInAuth from './pages/signin/signinAuth/SignInAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from './features/userProfile'
 
@@ -20,7 +20,6 @@ export default function App() {
 
   // cleaning store data if rememberMe is false
   const rememberMe = useSelector((state) => state.userProfile.user.rememberMe)
-  console.log("!!! rememberMe: ", rememberMe)
 
   if (!rememberMe) {
     dispatch(logout())

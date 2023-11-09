@@ -1,4 +1,4 @@
-import SignInForm from "../../components/signin-form/SignInForm";
+import SignInForm from "./signin-form/SignInForm";
 import "../../styles/sass/_main.scss"
 
 export default function SignIn() {

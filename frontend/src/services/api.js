@@ -28,13 +28,14 @@ export const getUserData = async (token) => {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-              }
+            }
         }
         // axios query
-        const response = await axios.post(BASE_URL + '/user/profile', axiosConfig)
+        const response = await axios.post(BASE_URL + '/user/profile', {}, axiosConfig)
         return response
     } catch (error) {
-        console.error(error)
+        console.error('Error fetching user data:', error.response ? error.response.data : error.message)
+        throw error
     }
 }
 

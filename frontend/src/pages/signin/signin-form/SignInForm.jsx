@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { login, getUserData } from '../../services/api'
-import { setToken, setFirstName, setLastName, setRememberMe, setIdentified } from '../../features/userProfile'
+import { login, getUserData } from '../../../services/api'
+import { setToken, setFirstName, setLastName, setRememberMe, setIdentified } from '../../../features/userProfile'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
