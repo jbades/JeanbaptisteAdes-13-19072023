@@ -15,7 +15,7 @@ export const login = async (username, password) => {
         return response
     } 
     catch (error) {
-        console.log(error)
+        console.error('Error fetching user data:', error.response ? error.response.data : error.message)
         return error
     }
 }
@@ -58,6 +58,7 @@ export const updateUserData = async (token, firstName, lastName) => {
         const response = await axios.put(BASE_URL + '/user/profile', data, axiosConfig)
         return response
     } catch (error) {
-        console.error(error)
+        console.error('Error fetching user data:', error.response ? error.response.data : error.message)
+        throw error
     }
 }

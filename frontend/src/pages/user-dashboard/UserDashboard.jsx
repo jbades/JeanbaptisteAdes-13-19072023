@@ -10,27 +10,28 @@ export default function User() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  // setting modal state
   const [showModal, setShowModal] = useState(false)
 
+  // calling data from store
   const identified = useSelector((state) => state.userProfile.identified)
   const token = useSelector((state) => state.userProfile.token)
   const firstName = useSelector((state) => state.userProfile.user.firstName)
   const lastName = useSelector((state) => state.userProfile.user.lastName)
 
-  const handleEditNameClick = () => {
-    setShowModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setShowModal(false)
-  }
-
   const handleSaveNewNames = async (newFirstName, newLastName) => {
     try {
+      // sending new names to API
       const response = await updateUserData(token, newFirstName, newLastName)
+      // modifying global state
       dispatch(setFirstName(newFirstName))
       dispatch(setLastName(newLastName))
+
+      // hiding modal
       setShowModal(false)
+
+      return response
+
     } catch (error) {
       console.error(error)
     }
@@ -45,7 +46,7 @@ export default function User() {
   return <main className="main bg-dark">
     <div className="header">
       <h1>Welcome back<br />{firstName} {lastName} !</h1>
-      <button className="edit-button" onClick={handleEditNameClick}>Edit Name</button>
+      <button className="edit-button" onClick={() => setShowModal(true)}>Edit Name</button>
     </div>
     <h2 className="sr-only">Accounts</h2>
     <section className="account">
@@ -81,7 +82,7 @@ export default function User() {
 
     <UserModal
       show={showModal}
-      onClose={handleCloseModal}
+      onClose={() => setShowModal(false)}
       onSave={handleSaveNewNames}
       existingFirstName={firstName}
       existingLastName={lastName}

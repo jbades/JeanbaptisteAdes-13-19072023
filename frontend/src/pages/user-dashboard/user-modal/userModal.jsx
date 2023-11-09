@@ -2,8 +2,7 @@ import { useState } from 'react'
 
 export default function UserModal ({ show, onClose, onSave, existingFirstName, existingLastName }) {
 
-  console.log("!!! show: ", show, "onClose: ", onClose, "onSave: ", onSave, "existingFirstName: ", existingFirstName, "existingLastName: ", existingLastName)
-
+  // setting local state
   const [firstName, setFirstName] = useState(existingFirstName)
   const [lastName, setLastName] = useState(existingLastName)
 
@@ -16,22 +15,23 @@ export default function UserModal ({ show, onClose, onSave, existingFirstName, e
     onSave(firstName, lastName)
   }
 
+  // rendering modal
   return (
     <div className="modal">
       <div className="modal-content">
         <h2>Edit Name</h2>
         <form onSubmit={handleSubmit}>
-            <div>
+            <div className="modal-line">
                 <label>First Name:</label>
                 <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
             </div>
-            <div>
+            <div className="modal-line">
                 <label>Last Name:</label>
                 <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
             </div>
             <div className="modal-actions">
-                <button type="button" onClick={onClose}>Cancel</button>
-                <button type="submit">Save Changes</button>
+                <button className="transaction-button" type="button" onClick={onClose}>Cancel</button>
+                <button className="transaction-button" type="submit">Save</button>
             </div>
         </form>
       </div>

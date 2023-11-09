@@ -25,6 +25,7 @@ export default function App() {
     dispatch(logout())
   }
 
+  // rendering router component
   return (
     <Router>
       <Header />
@@ -45,7 +46,10 @@ export default function App() {
             </UserAuth>
           } 
         />
-        <Route path="*" element={<Index/>} />
+        <Route 
+          path="*" 
+          element={<Index/>} 
+        />
       </Routes>
       <Footer />  
     </Router>
